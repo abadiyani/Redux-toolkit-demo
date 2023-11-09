@@ -1,6 +1,9 @@
 //import create slice from redux toolkit
 const createSlice = require("@reduxjs/toolkit").createSlice;
 
+//import cake Actions for extra reducer i.e buy one cake get one ice cream free
+const cakeActions = require("../cake/cakeSlice").cakeActions;
+
 //initial state
 const initialState = {
     numOfIcecreams: 20
@@ -17,6 +20,11 @@ const icecreamSlice = createSlice({
         restocked: (state, action) => {
             state.numOfIcecreams += action.payload;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(cakeActions.ordered, state => {
+            state.numOfIcecreams--;
+        });
     }
 });
 
